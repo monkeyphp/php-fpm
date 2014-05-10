@@ -1,4 +1,5 @@
 # php-fpm
+
 default['php-fpm']['php-fpm']['pid']                         = '/var/run/php5-fpm.pid'
 default['php-fpm']['php-fpm']['error_log']                   = '/var/log/php5-fpm.log'
 default['php-fpm']['php-fpm']['syslog.facility']             = 'daemon'
@@ -15,6 +16,13 @@ default['php-fpm']['php-fpm']['rlimit_core']                 = 0
 default['php-fpm']['php-fpm']['events.mechanism']            = 'epoll'
 default['php-fpm']['php-fpm']['systemd_interval']            = 10
 default['php-fpm']['php-fpm']['pool']['include']             = ['/etc/php5/fpm/pool.d/*.conf']
+
+case node['platform']
+when "centos"
+    default['php-fpm']['php-fpm']['pid']             = '/var/run/php-fpm/php-fpm.pid'
+    default['php-fpm']['php-fpm']['error_log']       = '/var/log/php-fpm/error.log'
+    default['php-fpm']['php-fpm']['pool']['include'] = ['/etc/php-fpm.d/*.conf']
+end
 
 # www.conf
 default['php-fpm']['www']['user']                      = 'www-data'
@@ -47,3 +55,10 @@ default['php-fpm']['www']['chroot']                    =  ''
 default['php-fpm']['www']['chdir']                     = '/'
 default['php-fpm']['www']['catch_workers_output']      = 'yes'
 default['php-fpm']['www']['security.limit_extensions'] = '.php'
+
+case node['platform']
+when "centos"
+    default['php-fpm']['www']['user'] = 'apache'
+    default['php-fpm']['www']['group'] = 'apache'
+    default['php-fpm']['www']['slowlog']  = '/var/log/php-fpm/$pool-slow.log'
+end
