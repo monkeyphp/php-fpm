@@ -58,7 +58,9 @@ default['php-fpm']['www']['security.limit_extensions'] = '.php'
 
 case node['platform']
 when "centos"
-    default['php-fpm']['www']['user'] = 'apache'
-    default['php-fpm']['www']['group'] = 'apache'
+    default['php-fpm']['www']['user']     = 'apache'
+    default['php-fpm']['www']['group']    = 'apache'
     default['php-fpm']['www']['slowlog']  = '/var/log/php-fpm/$pool-slow.log'
+    default['php-fpm']['www']['listen.owner']              = 'nginx'
+    default['php-fpm']['www']['listen.group']              = 'nginx'
 end

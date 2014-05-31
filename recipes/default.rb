@@ -37,25 +37,25 @@ when "centos"
     end
     
     package "php-common" do
-        version "5.5.12-1.el6.remi"
+        version "5.5.13-1.el6.remi"
         options "--enablerepo=remi,remi-php55"
         action :install
     end
     
     package "php-fpm" do
-        version "5.5.12-1.el6.remi"
+        version "5.5.13-1.el6.remi"
         options "--enablerepo=remi,remi-php55"
         action :install
     end
     
     package "php-mysqlnd" do
-        version "5.5.12-1.el6.remi"
+        version "5.5.13-1.el6.remi"
         options "--enablerepo=remi,remi-php55"
         action :install
     end
     
     package "php-opcache" do
-        version "5.5.12-1.el6.remi"
+        version "5.5.13-1.el6.remi"
         options "--enablerepo=remi,remi-php55"
         action :install
     end
@@ -63,7 +63,7 @@ when "centos"
     package "php-devel" do
         options "--enablerepo=remi,remi-php55"
         action :install
-        version "5.5.12-1.el6.remi"
+        version "5.5.13-1.el6.remi"
     end
     
     remote_file "/tmp/2.2.5.tar.gz" do
