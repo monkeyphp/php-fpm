@@ -81,6 +81,15 @@ when "centos"
         action :install
     end
 
+    package "memcached" do
+        action :install
+    end
+
+    package "php-memcached" do
+        options "--enablerepo=remi,remi-php55"
+        action :install
+    end
+
     bash "install_xdebug" do
         user "root"
         code "pecl install xdebug"
