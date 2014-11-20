@@ -37,25 +37,21 @@ when "centos"
     end
     
     package "php-common" do
-        version "5.5.13-1.el6.remi"
         options "--enablerepo=remi,remi-php55"
         action :install
     end
     
     package "php-fpm" do
-        version "5.5.13-1.el6.remi"
         options "--enablerepo=remi,remi-php55"
         action :install
     end
     
     package "php-mysqlnd" do
-        version "5.5.13-1.el6.remi"
         options "--enablerepo=remi,remi-php55"
         action :install
     end
     
     package "php-opcache" do
-        version "5.5.13-1.el6.remi"
         options "--enablerepo=remi,remi-php55"
         action :install
     end
@@ -63,9 +59,42 @@ when "centos"
     package "php-devel" do
         options "--enablerepo=remi,remi-php55"
         action :install
-        version "5.5.13-1.el6.remi"
     end
     
+    package "php-intl" do
+        options "--enablerepo=remi,remi-php55"
+        action :install
+    end
+    
+    package "php-xml" do
+        options "--enablerepo=remi,remi-php55"
+        action :install
+    end
+
+    package "php-soap" do
+        options "--enablerepo=remi,remi-php55"
+        action :install
+    end
+
+    package "php-mbstring" do
+        options "--enablerepo=remi,remi-php55"
+        action :install
+    end
+
+    bash "install_xdebug" do
+        user "root"
+        code "pecl install xdebug"
+        not_if "pecl list | grep -w xdebug"
+    end
+
+    file "/etc/php.d/xdebug.ini" do
+        owner "root"
+        group "root"
+        mode "0644"
+        content "[xdebug]\nzend_extension=\"/usr/lib64/php/modules/xdebug.so\"\nxdebug.remote_enable = 1\n"
+        action :create_if_missing
+    end
+
     remote_file "/tmp/2.2.5.tar.gz" do
         source "https://github.com/nicolasff/phpredis/archive/2.2.5.tar.gz"
         mode 0777
